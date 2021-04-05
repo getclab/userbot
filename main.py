@@ -34,7 +34,6 @@ def type(_, msg):
     orig_text = msg.text.split(".t ", maxsplit=1)[1]
     text = orig_text
     tbp = "" # to be printed
-    typing_symbol = ['🔥', '💣', '💥', '🧨', '🤔', '🍿', '🖤']
     t = ['.', '..', '...']
 
     while(tbp != orig_text):
@@ -51,5 +50,28 @@ def type(_, msg):
 
         except FloodWait as e:
             sleep(e.x)
+
+@app.on_message(filters.command("e", prefixes=".") & filters.me)
+def type(_, msg):
+    orig_text = msg.text.split(".e ", maxsplit=1)[1]
+    text = orig_text
+    tbp = "" # to be printed
+    typing_symbol = ['🔥', '💣', '💥', '🧨', '🤔', '🍿', '🖤']
+
+    while(tbp != orig_text):
+        try:
+
+            msg.edit(tbp + random.choice(typing_symbol))
+            sleep(0.5) # 50 ms
+
+            tbp = tbp + text[0]
+            text = text[1:]
+
+            msg.edit(tbp)
+            sleep(0.1)
+
+        except FloodWait as e:
+            sleep(e.x)
+
 if __name__ == '__main__':
     app.run()
